@@ -2,30 +2,28 @@
   <head>
     <script type="text/javascript" src="js/sb.js"></script>
   </head>
-  <body>
+  <body onLoad="test()">
     <input id="path" type="text">
   	<button id="read">read</button>
+		<textarea></textarea>
     <script type="text/javascript">
-    	document.getElementById('read').addEventListener('click', function () {
-			window.project1 = new sb.Project('Learning AI.sb');
-			project1.open(function (success) {
-				console.log('Project1:', project1); // SCRATCH READER
-				console.log(success);
-			});
-			
-			/*window.project2 = new sb.Project('MarioBros.sb2');
-			project2.open(function (success) {
-				console.log('Project2:', project2);
-			});*/
-			
-			var path = document.getElementById('path').value;
-			if (path !== '') {
-				window.project = new sb.Project(path);
-				project.open(function (success) {
-					console.log('Project:', project);
+			function test() {
+				window.project1 = new sb.Project('Learning AI.sb');
+				project1.open(function (success) {
+					console.log(project1); // SCRATCH READER
+					console.log(project1.save1());
 				});
 			}
-		});
+				
+    	document.getElementById('read').addEventListener('click', function () {
+				var path = document.getElementById('path').value;
+				if (path !== '') {
+					window.project = new sb.Project(path);
+					project.open(function (success) {
+						console.log('Project:', project);
+					});
+				}
+			});
     </script>
   </body>
 </html>

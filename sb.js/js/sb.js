@@ -378,6 +378,8 @@ sb.extend(sb.ObjectStream.prototype, {
 		
 		delete this.object;
 		
+		console.log(s);
+		console.log(this.stream);
 		return this.stream.index - start;
 	},
 	createObject: function (table, object, id, hint) {

@@ -1,0 +1,649 @@
+<!DOCTYPE html PUBLIC "-//W3O//DTD W3 HTML 2.0//EN">
+<!-- saved from url=(0052)http://homepages.inf.ed.ac.uk/pbrna/grip.html#anja92 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>The Match-Mismatch Conjecture and Learning to Use Data-Flow
+   Visual Programming Languages</title>
+</head>
+<body>
+<meta name="description" value="The Match-Mismatch Conjecture and Learning to Use Data-Flow
+   Visual Programming Languages">
+<meta name="keywords" value="grip">
+<meta name="resource-type" value="document">
+<meta name="distribution" value="global">
+<p>
+ </p><center> <h1>The GRIP Project, or... <br>The Match-Mismatch Conjecture and Learning to Use Data-Flow
+   Visual Programming Languages</h1>
+<p><strong>Jon Oberlander  -  Paul Brna  -  Richard Cox  -  Judith Good</strong></p><p>
+</p><p><strong>A Collaborative project between HCRC, The University of Edinburgh &amp; CBLU, The University of Leeds</strong></p><p><strong>
+April 1997 to September 1999</strong></p></center><p>
+</p><p>
+</p><center><p><br>
+<img src="./oberlander graphicality_files/new_sm.gif"><font color="#000080"><font size="+1"> 
+See <a href="http://www.hcrc.ed.ac.uk/~grip">here</a> for news as of
+December 1999.
+</font></font>
+</p></center>
+<h4><a name="SECTION00000010000000000000"> Summary:</a></h4>
+ There is an increasing expectation that visualisations in
+various domains will help communicate details of complex processes,
+structures and flows.  In the field of computing, visual programming
+languages (or VPLs) are expected to provide these features in an easy
+to understand way; thus the usability of VPLs is an issue for
+programmers at all levels.
+<p>
+VPLs can take different forms (<i> e.g. </i>  data and control-flow languages).
+Data-flow VPLs have been said to offer particular advantages to novice
+programmers, but the evidence for this is in some doubt.  We propose
+research into the ways in which novices learn how to use VPLs to
+understand programs.  Specifically, we propose an examination of
+control and data-flow VPLs, and their relative advantages for novice
+programmers.
+</p><p>
+The methodology adopted requires the comparison of two specially
+designed VPLs, and the development of more `intelligent' support for
+working with graphical data-flow languages.  The empirical work will
+draw on research by Green, Gilmore and others on the so-called
+`match-mismatch' hypothesis.
+</p><p>
+The research will provide more decisive conclusions relating to the
+advantages of specific types of VPLs for novices, and provide some
+insight into the processes involved in using and understanding VPLs in
+general.  These findings will feed directly into the development of
+support tools which aim to increase the effectiveness and ease of use
+of data-flow VPLs.
+</p><p>
+</p><h1><a name="SECTION00010000000000000000"> Introduction</a></h1>
+<p>
+Program comprehension is a key issue for the software
+engineering industry, and a major factor in the construction,
+maintenance and reuse of extremely large, complex software.
+One of the recent
+developments in the attempt to address the difficulties associated
+with program comprehension has been the use of various visualisations
+of both data and processes.  This translates in practice into the
+development of VPLs, program
+visualisation tools and graphical debuggers which have been made
+possible by recent advances in graphical user interface design.
+The acceptance of tools for visualisation in
+industrial contexts will depend on issues connected with learnability
+and usability, hence research into the graphical representations
+utilised in these visualisations plays a fundamental part in progress
+towards taking advantage of the current technological possibilities.
+</p><p>
+VPLs allow the programmer to
+``draw'' programs, usually using a box and line metaphor to represent
+various processes and the links between them.  Historically, these
+links often represented the flow of <em> control</em> from one process to
+another (control-flow model), although increasingly VPLs use the links
+to represent the flow of <em> data</em> between processes (data-flow
+model) [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#greennoddy">Green, 1995</a>].
+</p><p>
+Although the graphical data-flow model has been said to
+offer particular advantages to novice programmers
+[<a href="./oberlander graphicality_files/oberlander graphicality.htm">Anjaneyulu &amp; Anderson, 1992</a>,<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#hils92">Hils, 1992</a>], the evidence for this is scarce or even
+contradictory: Hils cites the existence of data-flow VPLs for
+programmers with little experience as evidence of their worth, while
+Anjaneyulu and Anderson, in a study comparing a data-flow visual
+isomorph of LISP to LISP itself, found very little in the way of
+significant differences.  Negative evidence for the claim comes from a
+preliminary study by Good (1996) comparing data-flow and 
+control-flow graphical notations, in which she found that novices had
+great difficulty in understanding data-flow representations; however,
+uncovering the reasons for why this might be so requires an extension
+to the study.
+</p><p>
+So do data-flow visual programming languages help or hinder novices?
+Would novices not be better off starting out with another type of
+language?  These questions highlight issues of both graphicality and
+choice of programming paradigm. This, in its turn, leads to further
+questions: we describe existing research on these matters, and argue
+the case for why more research is necessary in order to address the
+fundamental questions.
+</p><p>
+</p><h1><a name="SECTION00020000000000000000"> Background</a></h1>
+<p>
+The research questions we wish to address can be organised around two
+broad issues: programming paradigm and the value of `graphicality'.
+We first define the central focus of these areas, and describe how research
+already carried out in these areas leads to our specific research
+questions, to be discussed in detail in Section <a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#methodology">3</a>.
+</p><dl><dt>Graphicality
+</dt><dd> What are the specific characteristics of different
+types of VPLs which make them more or less
+easy to understand and use?  Will these characteristics, once
+identified, be consistent across all users, or might users respond to
+these graphical entities in different ways?  In other words, will some
+novices be more ``naturally'' suited to a graphical style of teaching
+than others?  If so, should we respect novice preferences or aim to
+train them in the use of their non-preferred tools?
+<p>
+</p></dd><dt>Paradigm
+</dt><dd> What is the role of programming paradigm?
+How does it influence the way we think about programming in general?
+Is it possible to make any claims that a data-flow based paradigm is
+<em> better</em> in some way than one based on control-flow?  Under what
+circumstances might we say that one was easier or somehow more
+``natural'' to learn and use?  Is it preferable to teach one rather
+than the other?  Is the trend away from control-flow based languages a
+good move as far as novice programmers are concerned?
+<p>
+ </p></dd></dl><h2><a name="SECTION00021000000000000000"> Graphicality</a></h2>
+<p>
+There seems to be a folk view that 
+VPLs are somehow ``cognitively natural''.  The claims made
+for VPLs range from the verifiable to the mildly preposterous (see
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#goodscaffold">Good &amp; Brna, 1996</a>] and [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#gree91">Green <i> et al</i>, 1991</a>] for critical discussions of
+some of these claims).  With particular respect to novice programming,
+our area of interest, there have been suggestions that VPLs make
+programming easier: among other things, they free the student from the
+syntactic complexity of text-based programming languages
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#myer90">Myers, 1990</a>], offer explicitly represented data and control-flow
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#cunn87">Cunniff &amp; Taylor, 1987</a>], and provide information at a more `intuitive',
+`humanlike' level [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#clar86">Clarisse &amp; Chang, 1986</a>].  These claims are all the more
+appealing given known novice difficulties in learning to program (see
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#solo89">Soloway &amp; Spohrer, 1989</a>] for a selection of articles describing such
+difficulties, many of which apply across languages).
+</p><p>
+Despite the claims made for VPLs, we in fact know very little about
+the relative benefits of using them.  The few studies which have
+investigated VPL use have shown mixed results.  Given our interest in
+novice use of data-flow versus control-flow VPLs, the studies are
+inconclusive for our purposes, as they have used expert, rather than
+novice, programmers [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#gree91">Green <i> et al</i>, 1991</a>], or compared a control-flow based
+textual language with its graphical equivalent [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#cunn87">Cunniff &amp; Taylor, 1987</a>], or
+investigated questions for which it was not important to separate out
+the issues of paradigm and graphicality [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#pand93">Pandey &amp; Burnett, 1993</a>].  Additionally,
+many focus solely on the outcome of the activity, <i> e.g. </i>  the time taken
+to perform a task and accuracy of the completed task, rather than the
+<em> processes</em> involved in doing the task.  Finally, most studies
+have compared a visual language and a textual language which were
+either felt to be isomorphic or equivalent in some key way (<i> e.g. </i> 
+paradigm, constructs, area of application) rather than two distinct
+graphical paradigms.
+</p><p>
+</p><h2><a name="SECTION00022000000000000000"> Programming Paradigm</a></h2>
+<p>
+</p><h3><a name="SECTION00022100000000000000"> Previous Work</a></h3>
+<p>
+As mentioned above, there has been a paradigm shift in visual
+programming.  The first graphical representations were procedural, or
+control-flow based, in nature (essentially executable flowcharts)
+while many current VPLs are based on a data-flow paradigm, a move
+which may be part of a general tendency to move away from control-flow
+based languages (cf. the increasing popularity of object-oriented
+languages).
+</p><p>
+Interestingly enough however, studies on textual languages show that
+novice programmers do not seem to think of programs in a data-flow
+oriented way.  For example, in a study of novice Pascal programmers,
+Corritore and Wiedenbeck found that novice mental
+representations were primarily procedural in nature [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#corr91">Corritore &amp; Wiedenbeck, 1991</a>].  Likewise,
+Adelson found that novices formed
+representations based on how a program functions (these were called
+<em> concrete</em> representations in the study), as opposed to the <em>
+  abstract</em> representations formed by experts (defined as what a
+program does) [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#adelnoviceexpert">Adelson, 1984</a>].
+</p><p>
+Thus, there appears to be an incompatibility between novice
+preferences and trends in VPLs: a seeming propensity for procedural,
+control-flow based descriptions on the part of novices seems
+inconsistent with a general move toward data-flow based VPLs.
+Starting novices off on a data-flow based language may paradoxically
+increase the already acknowledged difficulties that they have with
+programming, rather than alleviating or at least decreasing them.
+</p><p>
+It is an open question however as to whether this procedural bias
+holds across languages or whether it is an epiphenomenon of the
+language used, as the studies cited above both used procedural
+languages.  A study is currently in progress (Good, in preparation)
+which is based closely on Corritore and Wiedenbeck's study, but uses
+novice Prolog programmers.  Preliminary results suggest that Prolog
+novices' representations of programs differ from that of their Pascal
+counterparts.  Further data analysis may show that language in fact
+plays a role in determining novices' preferred representation.
+Although the study centres on a textual language, this phenomenon
+should extend to visual languages as well.
+</p><p>
+</p><h3><a name="SECTION00022200000000000000"> Testing for Paradigm Preference</a></h3>
+<p>
+One way of clarifying the issue of control-flow ``naturalness'' versus
+language dependency is by carrying out a study based on the
+match-mismatch hypothesis [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#gilmmatch">Gilmore &amp; Green, 1984</a>].  This hypothesis states,
+briefly, that if a language (or notation) highlights a given type of
+information, then a task requiring that type of information should be
+easier to perform than one requiring another type.  Likewise, the same
+task performed with a representation in which the required information
+is present, but needs to be inferred, will also be more difficult.  We
+would expect this hypothesis to hold when comparing a data-flow and a
+control-flow notation: if the data-flow notation is used, then
+performance on questions requiring data-flow information should be
+better than performance on questions requiring control-flow
+information (and vice versa).  If on the other hand, novices
+``naturally'' favour one language over the other (<i> e.g. </i>  the control-flow
+language), their performance overall should be better with that
+language regardless of the type of questions asked.
+</p><p>
+Although an initial study by Good failed to provide
+conclusive evidence to support either scenario, it suggested that
+novices may have difficulty with data-flow VPLs, not because of some
+innate preference for control-flow notations, but possibly because
+data-flow representations place larger demands on memory resources
+than do their control-flow equivalents [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#goodesp6">Good, 1996</a>].
+</p><p>
+Again, more work is needed to understand the processes involved in
+working with data-flow graphical representations and the reasons why
+they are particularly difficult for novices.
+</p><p>
+</p><h3><a name="SECTION00022300000000000000"> Offering Support for Particular Paradigms</a></h3>
+<p>
+The choice of programming paradigm has obvious pedagogical
+implications: ease of use is of primary importance when considering
+programming languages for teaching.  However, if the language we aim
+to teach is difficult for novices to use and understand, but desirable
+to know in the long term, what can we do to ease the difficulties?  It
+has already been amply shown that ``graphicality'' in itself is not
+sufficient to alleviate novice programmer difficulties (see <i> e.g. </i> 
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#goodeuroaied96">Good &amp; Brna, 1996</a>]): we need to provide novices with further
+scaffolding if we are to support them as they learn to program.  One
+solution to this problem in the past has been to provide novices with
+specially designed environments in which to learn programming before
+switching to the language in question.  This solution often creates
+
+additional problems as novices must first learn to use one
+environment, then negotiate the transfer to the full-scale ``target''
+language, which may involve unlearning some constructs and relearning
+others.  For example, GIL [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#reis91">Reiser <i> et al</i>, 1991</a>] is a graphical environment
+which offers support of various types to novices learning LISP.  At
+some point however, the novice must transfer to LISP, a textual language
+offering very few of the features contained in GIL.
+</p><p>
+We would argue that these problems can be avoided by adding ``intelligent''
+support features to the language in question, rather than creating
+additional programming environments.  These features can provide a
+form of scaffolding as the novice learns to program, and be switched
+off as the novice gains in competency.  This would circumvent the
+problem of having to switch to a new environment once the support is
+no longer necessary.
+</p><p>
+</p><h2><a name="SECTION00023000000000000000"> Summary</a></h2>
+<p>
+Although there is a general move toward graphical interfaces, there
+are still unanswered questions as to the benefits of this
+``graphicality'', the possible problems involved in using graphical
+notations, and the ways in which these problems can be addressed
+during training.  This proposal aims to address some of these
+questions.
+</p><p>
+The evidence currently indicates that the trend towards data-flow 
+based VPLs creates extra difficulties for novices.  Novices also 
+appear to have a preference for a control-flow based view of programs.  
+If the control-flow based view is generally easier to work with than a 
+data-flow view, and if we wish to promote the data-flow view, then we 
+need to find ways of supporting this view and making it more easily 
+understandable and usable for novices.  We therefore seek to 
+investigate the ways in which we can by augment data-flow VPLs with 
+``intelligent'' features.
+</p><p>
+
+</p><h2><a name="SECTION00032000000000000000">Future Work</a></h2>
+<p>
+Much of the work carried out will be in the form of experiments
+involving novices using VPLs.  Three
+experiments will be conducted: the first experiment will test the
+match-mismatch conjecture in relation to data-flow and control-flow
+VPLs.  The results will also provide a detailed outline of the
+strengths and weaknesses of data-flow VPLs.  A second, more open ended
+investigation will be conducted into the types of support that novices
+find effective.  From this investigation, a prototype ``intelligent''
+data-flow VPL will be designed and implemented.  A final experiment
+will be conducted to assess the benefits of this augmented data-flow
+VPL over the version used in the first experiment.
+</p><p>
+The work proposed is timely in that the move to data-flow based VPLs
+requires further study in order to promote their use in the most
+appropriate circumstances.  As our preliminary evidence suggests, this
+trend may not be entirely beneficial to novices, and therefore we wish
+to further research this issue.  We aim to determine the kinds of
+support which novices might benefit from, and provide an initial
+implementation.
+</p><p>
+Research has already been mentioned which looks at the mental
+representations of novice programmers in textual languages, and which
+compares textual and visual languages.  Work is also ongoing which
+investigates differences between textual and visual data and
+control-flow languages.  However, this research is concerned with
+expert programmers using the languages, rather than novice
+programmers learning them [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#petrrussiandata">Petre <i> et al</i>, 1995</a>].
+</p><p>
+As far as we are aware, the only study which has compared novice use
+of two distinct graphical paradigms in an attempt to provide both a
+performance and a process account is that of Good (1996). 
+However, although the study was able to suggest trends and tendencies
+in VPL use, it needs to be extended in order to produce more
+conclusive results.
+</p><p>
+</p><h3><a name="SECTION00034100000000000000"> Development of Two ``Micro-Languages''</a></h3>
+<p>
+Two graphical ``micro-languages'' will be developed for
+experimentation: a data-flow and a control-flow language.  These
+languages will embody the main features of each type of language, as
+defined in [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#davidataflow">Davis &amp; Keller, 1982</a>] and exemplified by various languages
+in [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#hils92">Hils, 1992</a>] for data-flow languages, and by a variation on
+standard flowchart techniques for the control-flow language.  The
+languages will be restricted in scope as they will, in the first
+instance, be used primarily for comprehension and simple programming
+tasks.
+</p><p>
+Bespoke languages are deemed necessary in order to avoid introducing
+confounding variables.  The studies to be carried out require
+languages which vary solely along the paradigm continuum, while using
+pre-existing commercially available languages would introduce spurious
+variation of other types, such as area of application, syntactic and
+semantic scope, large differences in the style of the interface and
+method of interacting with it, etc.
+</p><p>
+</p><h3><a name="SECTION00034200000000000000"> The Core Experiment</a></h3>
+<p>
+The core experiment will use novice programmers and test the
+match-mismatch hypothesis.  The aim is to gather both qualitative and
+quantitative data which will inform the design and implementation of
+the following experiments and the ``intelligent'' micro-language.
+</p><p>
+The general design of the experiment will be as follows.  Two groups
+of subjects will be used: the data-flow group and the control-flow
+group.  Data-flow subjects will receive data-flow graphical
+representations of programs, while control-flow subjects will receive
+control-flow versions of the same programs.  Subjects will work in
+pairs.  Following a standard introduction and practice session,
+subjects will study a series of programs.  They will then be required
+to answer questions about the program, covering aspects of data-flow,
+control-flow, program function, etc. similar to the study described in
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#corr91">Corritore &amp; Wiedenbeck, 1991</a>].
+</p><p>
+We hypothesise that one of three outcomes will be observed.  We
+consider each one in turn and discuss their implications for designers
+of languages for novices and for teaching programming:
+</p><ol><li> The match-mismatch effect is upheld, with best performance
+measured when the information highlighted by the notation is that
+required by the task.  In this case, there are implications for
+teaching: 
+programming teachers will need to address the issue of how best to
+teach students to infer
+information from notations or representations where it is not
+highlighted. 
+</li><li> The control-flow representation is associated with better
+performance.  This implies two possibilities: programming teachers
+could decide to start novices off with a control-flow representation,
+and move them to a data-flow representation as their skill increases.
+A more interesting route may be to attempt to alleviate the
+difficulties encountered when using the data-flow language: given that
+we will obtain process data (see below) from the experiment, we should be 
+able to
+see where novices are having difficulty, and make suggestions to
+language designers as to how these difficulties might be alleviated
+(<i> e.g. </i>  by providing increased resources for using the representation as
+an externalised memory).
+</li><li> The data-flow representation is associated with better
+performance overall.  Based on previous studies, this result is less
+likely, and wouldn't necessarily have implications for language design
+or programming teaching.  However, it would provide support for the
+increasing use of data-flow based languages, and the process data
+would hopefully uncover the reasons for improved performance over
+control-flow notations.
+<p>
+</p></li></ol>
+<p>
+At the same time, we feel that performance data on its own is not
+sufficient to build up a picture of what occurs when using data and
+control-flow languages: data which uncovers the processes involved in
+working through and understanding a graphical notation is also
+necessary.  For this reason, we will be using pairs in our study in
+order to elicit more protocol data than would normally be obtainable
+with single subjects.  Subjects will be filmed and a log made
+of all activity occurring at the interface level.  An analysis will be
+carried out on the verbal protocol data in order to determine the
+strategies used and the misunderstandings harboured.  This study will
+build on the strategies and misunderstandings identified and
+catalogued in [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#goodesp6">Good, 1996</a>], by providing a much finer-grained
+account of the interface activities and pinpointing places where
+difficulties are likely to occur.  This account will consider both
+problems which occur across languages, and those which occur only
+within one paradigm, thus uncovering possible reasons why one paradigm
+might be more difficult than the other.
+</p><p>
+Furthermore, a more speculative line of research will also be pursued
+with a view to the development of a discourse analytic account of the
+ways in which the VPLs are used in the comprehension process.  This
+will be undertaken by Oberlander and Brna, and draws on on-going
+research by Oberlander (1996), Brna (1996), and Pilkington and her
+colleagues at Leeds (Pilkington, 1996).  The analysis will exploit
+current approaches to discourse structure, and, where appropriate,
+will be based on Pilkington's DISCOUNT scheme.  The methodology will
+be to perform a qualitative analysis of a small number of the
+protocols obtained from subject pairs in the various experiments.  The
+exploration will focus on the mechanisms by which subjects use the
+diagram representing the program to (a) highlight problems in program
+comprehension, (b) redefine the nature of the problem, and (c) verify
+their current understanding of the program.
+</p><p>
+</p><h3><a name="SECTION00034300000000000000"> Development of an ``Intelligent'' Micro-Language</a></h3>
+<p>
+In order to counteract the problems inherent in specialised novice
+programming environments already mentioned, we aim to take one of the
+micro-languages used in the study and augment it with ``intelligent''
+features which will provide support in the early stages of learning to
+program and can be switched off as the novice gains in competency.
+This will circumvent the problem of having to switch to a new
+environment once this support is no longer necessary.
+</p><p>
+We plan to augment the data-flow language, as this is the language
+which has been informally shown to be the most problematic for novices
+(although the work proposed could apply equally well to the
+control-flow language).  The development of the language will be based
+on data from various sources:
+</p><ol><li> The preliminary study.  Results from this already suggest such
+improvements as making recursion explicit by a process of
+``unfolding'' the recursive call [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#goodscaffold">Good &amp; Brna, 1996</a>];
+<p>
+</p></li><li> The core experiment described above.  We expect to find that difficulty
+with data-flow stems partly from the large demand on memory resources,
+therefore, tools can be provided for offloading a certain amount of
+the information held in memory onto the representation, <i> e.g. </i>  a tool for
+tracing data-flow dependencies.
+<p>
+</p></li><li> A second, smaller-scale experiment.  This will replicate the
+data-flow condition of the first study, but provide subjects with a
+scratch-pad with which to work, write informal results, etc.  The
+information which novices choose to note will give further insight
+into the sorts of facilities which they might benefit from.
+<p>
+</p></li><li> A more detailed analysis of the data-flow notation in terms of
+Green's cognitive dimensions [<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#gree89">Green, 1989</a>].  Although these dimensions
+were used to some extent in the study described in
+[<a href="http://homepages.inf.ed.ac.uk/pbrna/grip.html#goodscaffold">Good &amp; Brna, 1996</a>], they need to be applied in more detail in order
+to uncover possible improvements to the notation.
+<p>
+</p></li></ol><h3><a name="SECTION00034400000000000000"> Re-testing of the New Data-Flow Micro-Language</a></h3>
+<p>
+The final step will be to re-run the above experiment using the new
+data-flow language.  This will be a two condition experiment: <i> i.e. </i> 
+data-flow and augmented data-flow.  One would expect best performance
+to be associated with the augmented data-flow representation, thus
+providing some support for the idea that novice difficulty with
+data-flow is not a function of the paradigm itself, but of the way in
+which it is implemented.
+</p><p>
+ </p><p><a name="SECTIONREF"></a></p><h2><a name="SECTIONREF">References</a></h2><p>
+</p><dl compact=""><dt><a name="adelnoviceexpert"><strong>Adelson, 1984</strong></a></dt><dd>
+Adelson, B.
+ (1984).
+ When novices surpass experts: The difficulty of a task may increase
+  with expertise.
+ <em> Journal of Experimental Psychology: Learning, Memory and
+  Cognition</em>, 10:483--495.
+<p>
+</p></dd><dt><a name="anja92"><strong>Anjaneyulu &amp; Anderson, 1992</strong></a></dt><dd>
+Anjaneyulu, K.S.R. and Anderson, J.R.
+ (1992).
+ The advantages of data flow diagrams for beginning programming.
+ In Frasson, C., Gauthier, G.  and McCalla, G.I., (eds.), <em>
+  Intelligent tutoring systems : Second International Conference, ITS '92,</em>,
+  pages pp. 585--592.
+<p>
+</p></dd><dt><a name="brna96"><strong>Brna, 1996</strong></a></dt><dd>
+Brna, P. 
+ (1996). 
+Can't See the Words for the Tree: Interpretation and
+Graphical Representations.  
+ In <em> Proceedings of the Colloquium on Thinking
+with Diagrams</em>, Digest No: 96/010, IEE, London January 1996.
+<p>
+</p></dd><dt><a name="clar86"><strong>Clarisse &amp; Chang, 1986</strong></a></dt><dd>
+Clarisse, O. and Chang, S-K.
+ (1986).
+ Vicon: A visual icon manager.
+ In Chang, S-K., Ichikawa, T.  and Ligomenides, P.A., (eds.), <em>
+  Visual Languages</em>, pages 151--190. Plenum Press.
+<p>
+</p></dd><dt><a name="corr91"><strong>Corritore &amp; Wiedenbeck, 1991</strong></a></dt><dd>
+Corritore, C.L. and Wiedenbeck, S.
+ (1991).
+ What do novices learn during program comprehension?
+ <em> International Journal of Human-Computer Interaction</em>,
+  3(2):199--222.
+<p>
+</p></dd><dt><a name="cunn87"><strong>Cunniff &amp; Taylor, 1987</strong></a></dt><dd>
+Cunniff, N. and Taylor, R.P.
+ (1987).
+ Graphical vs. textual representation: An empirical study of novices'
+  program comprehension.
+ In Olson, G.M., Sheppard, S.  and Soloway, E., (eds.), <em> Empirical
+  Studies of Programmers: Second Workshop</em>, pages 114--131, New Jersey. Ablex
+  Publishing Corporation.
+<p>
+</p></dd><dt><a name="davidataflow"><strong>Davis &amp; Keller, 1982</strong></a></dt><dd>
+Davis, A.L. and Keller, R.M.
+ (1982).
+ Data flow program graphs.
+ <em> IEEE Computer</em>, 15:26--41.
+<p>
+</p></dd><dt><a name="gilmmatch"><strong>Gilmore &amp; Green, 1984</strong></a></dt><dd>
+Gilmore, D.J. and Green, T.R.G.
+ (1984).
+ Comprehension and recall of miniature programs.
+ <em> International Journal of Man-Machine Studies</em>, 21:31--48.
+<p>
+</p></dd><dt><a name="goodscaffold"><strong>Good &amp; Brna, 1996</strong></a></dt><dd>
+Good, J. and Brna, P.
+ (January 1996).
+ Scaffolding for recursion: Can visual languages help?
+ In <em> IEE Colloquium on Thinking with Diagrams</em>, pages 7/1--7/3.
+  IEE.
+<p>
+</p></dd><dt><a name="goodeuroaied96"><strong>Good &amp; Brna, 1996</strong></a></dt><dd>
+Good, J. and Brna, P.
+ (1996).
+ Novice difficulties with recursion: Do graphical representations hold
+  the solution?
+ In <em> Proceedings of the European
+  Conference on AI in Education, Lisbon, Portugal, September 30 -- October 2,
+  1996</em>.
+<p>
+</p></dd><dt><a name="goodesp6"><strong>Good, 1996</strong></a></dt><dd>
+Good, J.
+ (1996).
+ The `right' tool for the task: An investigation of external
+  representations, program abstractions and task requirements.
+ In Gray, W.D. and Boehm-Davis, D.A., (eds.), <em> Empirical Studies
+  of Programmers: Sixth Workshop</em>, pages 77--98. Ablex Publishing Corporation.
+<p>
+</p></dd><dt><a name="gree89"><strong>Green, 1989</strong></a></dt><dd>
+Green, T.R.G.
+ (1989).
+ Cognitive dimensions of notations.
+ In Sutcliffe, A. and Macaulay, L., (eds.), <em> People and Computers
+  V</em>. Cambridge University Press.
+<p>
+</p></dd><dt><a name="greennoddy"><strong>Green, 1995</strong></a></dt><dd>
+Green, T.R.G.
+ (1995).
+ Noddy's guide to ... visual programming.
+ <em> Interfaces, The British Computer Society, Human-Computer
+  Interaction Group</em>.
+<p>
+</p></dd><dt><a name="gree91"><strong>Green <i> et al</i>, 1991</strong></a></dt><dd>
+Green, T.R.G., Petre, M.  and Bellamy, R.K.E.
+ (1991).
+ Comprehensibility of visual and textual programs: A test of
+  superlativism against the `match-mismatch' conjecture.
+ In Koenemann, S.P., Moher, T.G.  and Robertson, S.P., (eds.), <em>
+  Empirical Studies of Programmers: Fourth Workshop</em>, pages 121--146, New
+  Jersey. Ablex Publishing Corporation.
+<p>
+</p></dd><dt><a name="hils92"><strong>Hils, 1992</strong></a></dt><dd>
+Hils, D.D.
+ (1992).
+ Visual languages and computing survey: Data flow visual programming
+  languages.
+ <em> Journal of Visual Languages and Computing</em>, 3:69--101.
+<p>
+</p></dd><dt><a name="myer90"><strong>Myers, 1990</strong></a></dt><dd>
+Myers, B.A.
+ (1990).
+ Taxonomies of visual programming and program visualization.
+ <em> Journal of Visual Languages and Computing</em>, 1:97--123.
+<p>
+</p></dd><dt><a name="ober96"><strong>Oberlander, 1996</strong></a></dt><dd>
+Oberlander, J. 
+ (1996). 
+ Grice for graphics: pragmatic implicature
+in network diagrams.  
+ <em> Information Design Journal</em>, 8:163--179.
+<p>
+</p></dd><dt><a name="pand93"><strong>Pandey &amp; Burnett, 1993</strong></a></dt><dd>
+Pandey, R.K. and Burnett, M.M.
+ (1993).
+ Is it easier to write matrix manipulation programs visually or
+  textually? an empirical study.
+ In <em> Proceedings of the 1993 IEEE Symposium on Visual Languages</em>,
+  pages 344--351.
+<p>
+</p></dd><dt><a name="petrrussiandata"><strong>Petre <i> et al</i>, 1995</strong></a></dt><dd>
+Petre, M., Price, B., Fix, V., Scholtz, J., Wiedenbeck, S., Netesin, I.  and
+  Yershov, S.
+ (1995).
+ Comparing program comprehension in different cultures and different
+  representations.
+ In <em> 7th Workshop of the Psychology of Programming Interest Group
+  (PPIG-7)</em>, page 94.
+<p>
+</p></dd><dt><a name="pilk96"><strong>Pilkington, 1996</strong></a></dt><dd>
+Pilkington, R.M. 
+ (1996).
+ Analyzing Educational Discourse: The DISCOUNT
+Scheme. 
+ CBL Technical Report. Available on written request.
+<p>
+</p></dd><dt><a name="reis91"><strong>Reiser <i> et al</i>, 1991</strong></a></dt><dd>
+Reiser, B.J., Beekelaar, R., Tyle, A.  and Merrill, D.C.
+ (1991).
+ Gil: Scaffolding learning to program with reasoning-congruent
+  representations.
+ In <em> The International Conference of the Learning Sciences:
+  Proceedings of the 1991 Conference</em>, pages 382--388. Association for the
+  Advancement of Computing in Education.
+<p>
+</p></dd><dt><a name="solo89"><strong>Soloway &amp; Spohrer, 1989</strong></a></dt><dd>
+Soloway, E. and Spohrer, J.C., (eds.).
+ (1989).
+ <em> Studying the Novice Programmer</em>.
+ Lawrence Erlbaum Associates.
+</dd></dl>
+
+  <br> <hr>
+<p></p><address>
+<i>Paul Brna <br>
+Mon Dec  1 13:29:03 GMT 1997</i>
+</address>
+
+</body></html>

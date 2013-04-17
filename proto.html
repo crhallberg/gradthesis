@@ -1,0 +1,192 @@
+<html>
+	<head>
+		<style>
+			body {
+				background:#DDD;
+			}
+			#lines,#code {
+				position:absolute;
+				top:50px;
+				left:300px;
+				width:600px;
+				height:600px;
+				background:#FFF;
+			}
+			#code {
+				border:1px solid #888;
+				line-height:24px;
+				font-size:16px;
+				background:transparent;
+			}
+		</style>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="https://raw.github.com/alanhogan/Tabby/master/jquery.textarea.min.js"></script>
+		<script>
+			var h = 24,
+				width = 600,
+				height = 600;
+			var lines = []
+				colors = ['#496AD5','#E1AB17','#8C51E7','#0094DE','#BB42C3','#5CB712','#0E9A6D','#EE7D15'];
+			var c,a;
+			var regex = [[
+					'move () steps',
+					'turn cw () degrees',
+					'turn right () degrees',
+					'turn ccw () degrees',
+					'turn left () degrees',
+					'point in direction ()',
+					'point towards []',
+					'go to x: () y: ()',
+					'go to []',
+					'glide () secs to x:',
+					'change x by ()',
+					'set x to ()',
+					'change y by ()',
+					'set y to ()',
+					'if on edge, bounce'
+			  ], [
+					'when gf clicked',
+					'when green flag clicked',
+					'when [] clicked',
+					'when [] key pressed',
+					'wait () secs',
+					'forever if <>',
+					'forever',
+					'end',
+					'repeat ()',
+					'broadcast [] and wait',
+					'broadcast []',
+					'when I receive []',
+					'if <>',
+					'else',
+					'wait until <>',
+					'repeat until <>',
+					'stop script',
+					'stop all'
+				], [
+					'switch to costume []',
+					'next costume',
+					'costume #',
+					'say () for () secs',
+					'say ()',
+					'think () for () secs',
+					'think ()',
+					'change [] effect by ()',
+					'set [] effect to ()',
+					'clear graphical effects',
+					'change size by ()',
+					'set size to ()%',
+					'size',
+					'show',
+					'hide',
+					'go to front',
+					'go back () layers'
+				], [
+					'<touching []?>',
+					'<touching color ()?>',
+					'<color () is touching ()?>',
+					'ask () and wait',
+					'answer',
+					'mouse x',
+					'mouse y',
+					'<mouse down?>',
+					'<key [] pressed?>',
+					'distance to []',
+					'reset timer',
+					'timer',
+					'[] of []',
+					'loudness',
+					'<loud?>',
+					'[] sensor value',
+					'sensor []?'
+				], [
+					'play sound [] until done',
+					'play sound []',
+					'stop all sounds',
+					'play drum () for () beats',
+					'rest for () beats',
+					'play note () for () beats',
+					'set instrument to ()',
+					'change volume by ()',
+					'set volume to ()%',
+					'volume',
+					'change tempo by ()',
+					'set tempo to () bpm',
+					'tempo'
+				], [
+					'()+()',
+					'() + ()',
+					'()-()',
+					'() - ()',
+					'()*()',
+					'() * ()',
+					'()/()',
+					'() / ()',
+					'pick random () to ()',
+					'<()<()>',
+					'<() < ()>',
+					'<()=()>',
+					'<() = ()>',
+					'<()>()>',
+					'<() > ()>',
+					'<() and ()>',
+					'<() or ()>',
+					'<not ()>',
+					'join () ()',
+					'join ()()',
+					'join()()',
+					'letter () of ()',
+					'length of ()',
+					'() mod ()',
+					'round ()',
+					'[] of ()'
+				], [
+					'clear',
+					'pen down',
+					'pen up'
+				], [
+					'[]',
+					'set [] to ()',
+					'change [] by ()'
+				]];
+			function draw() {
+				var origcode = document.getElementById('code').value;
+				var code = origcode.replace(/(^|\n)[ \t]*/g,'$1')
+					.replace(/\([^\)]*\)/g,'()')
+					.replace(/\[[^\]]*\]/g,'[]');
+				code = code.split('\n');
+				origcode = origcode.split('\n');
+				console.log(origcode);
+				console.log(code);
+				
+				if(!c) {
+					a = document.getElementById('lines');
+					c = a.getContext('2d');
+				}
+				c.clearRect(0,0,a.width,a.height);
+				for(var i=origcode.length;i--;) {
+					if(origcode[i].length > 0) {
+						for(var j=regex.length;j--;) {
+							if(regex[j].indexOf(code[i]) > -1) {
+								var x = origcode[i].match(/^[ ]*/)[0].length;
+								var l = (origcode[i].length-x)*10 || a.width;
+								c.fillStyle = colors[1];
+								c.fillRect(0, h*i, x*10, h+2);
+								c.fillStyle = colors[j];
+								c.fillRect(x*10, h*i, l+10, h+2);
+								c.fillStyle = 'rgba(255,255,255,.3)';
+								c.fillRect(0, h*i, x*10, h+2);
+								c.fillRect(x*10+2, h*i+2, l+6, h-2);
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="lines" width="600" height="600"></canvas>
+		<textarea onKeyUp="draw()" id="code"></textarea>
+		<script>$('#code').tabby({tabString:'   '});</script>
+	</body>
+</html>

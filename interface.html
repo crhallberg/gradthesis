@@ -1,0 +1,201 @@
+<html>
+	<head><script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="https://raw.github.com/alanhogan/Tabby/master/jquery.textarea.min.js"></script>
+		<script>
+			var h = 24,
+				width = 600,
+				height = 600;
+			var lines = []
+				colors = ['#496AD5','#E1AB17','#8C51E7','#0094DE','#BB42C3','#5CB712','#0E9A6D','#EE7D15'];
+			var c,a;
+			var regex = [[
+					'move () steps','turn cw () degrees','turn right () degrees','turn ccw () degrees','turn left () degrees','point in direction ()','point towards []','go to x: () y: ()','go to []','glide () secs to x:','change x by ()','set x to ()','change y by ()','set y to ()','if on edge, bounce'
+			  ], [
+					'when gf clicked','when green flag clicked','when [] clicked','when [] key pressed','wait () secs','forever if <>','forever','end','repeat ()','broadcast [] and wait','broadcast []','when I receive []','if <>','else','wait until <>','repeat until <>','stop script','stop all'
+				], [
+					'switch to costume []','next costume','costume #','say () for () secs','say ()','think () for () secs','think ()','change [] effect by ()','set [] effect to ()','clear graphical effects','change size by ()','set size to ()%','size','show','hide','go to front','go back () layers'
+				], [
+					'<touching []?>','<touching color ()?>','<color () is touching ()?>','ask () and wait','answer','mouse x','mouse y','<mouse down?>','<key [] pressed?>','distance to []','reset timer','timer','[] of []','loudness','<loud?>','[] sensor value','sensor []?'
+				], [
+					'play sound [] until done','play sound []','stop all sounds','play drum () for () beats','rest for () beats','play note () for () beats','set instrument to ()','change volume by ()','set volume to ()%','volume','change tempo by ()','set tempo to () bpm','tempo'
+				], [
+					'()+()','() + ()','()-()','() - ()','()*()','() * ()','()/()','() / ()','pick random () to ()','<()<()>','<() < ()>','<()=()>','<() = ()>','<()>()>','<() > ()>','<() and ()>','<() or ()>','<not ()>','join () ()','join ()()','join()()','letter () of ()','length of ()','() mod ()','round ()','[] of ()'
+				], [
+					'clear','pen down','pen up'
+				], [
+					'[]','set [] to ()','change [] by ()'
+				]];
+			function draw() {
+				var origcode = document.getElementById('code').value;
+				var code = origcode.replace(/(^|\n)[ \t]*/g,'$1')
+					.replace(/\([^\)]*\)/g,'()')
+					.replace(/\[[^\]]*\]/g,'[]');
+				code = code.split('\n');
+				origcode = origcode.split('\n');
+				console.log(origcode);
+				console.log(code);
+				
+				if(!c) {
+					a = document.getElementById('lines');
+					c = a.getContext('2d');
+				}
+				c.clearRect(0,0,a.width,a.height);
+				for(var i=origcode.length;i--;) {
+					if(origcode[i].length > 0) {
+						for(var j=regex.length;j--;) {
+							if(regex[j].indexOf(code[i]) > -1) {
+								var x = origcode[i].match(/^[ ]*/)[0].length;
+								var l = (origcode[i].length-x)*10 || a.width;
+								c.fillStyle = colors[1];
+								c.fillRect(0, h*i, x*10, h);
+								c.fillStyle = colors[j];
+								c.fillRect(x*10, h*i, l+10, h);
+								c.fillStyle = 'rgba(255,255,255,.3)';
+								c.fillRect(0, h*i, x*10, h);
+								c.fillRect(x*10+2, h*i+2, l+6, h-4);
+							}
+						}
+					}
+				}
+			}
+		</script>
+		<style>
+		  body {
+				background:#BBB;
+				padding:0;
+				margin:0;
+				height:600px;
+			}
+			#panel {
+				position:absolute;
+				width:220px;
+				height:100%;
+				background:#DDD;
+				z-index:1;
+				padding:20px;
+				box-shadow:0 0 5px #000;
+			}
+			#control {
+				border-radius:10px;
+				box-shadow:inset 0 0 10px;
+				width:200px;
+				height:120px;
+				margin:0 auto 2em auto;
+				background:#959A9F;
+				background-image:url('panel.png');
+				background-position:center center;
+				background-repeat:no-repeat;
+			}
+			#lines,#code {
+				position:absolute;
+				top:8px;
+				left:270px;
+				width:800px;
+				height:758px;
+				background:#FFF;
+			}
+			#code {
+				background:transparent;
+				line-height:24px;
+				font-size:16px;
+				border:1px solid #555;
+			}
+			#preview {
+				position:absolute;
+				top:8px;
+				left:1078px;
+				width:480px;
+				border:1px solid #555;
+				background:#FFF;
+			}
+			#flags {
+				height:21px;
+				width:100%;
+				background:#959A9F;
+				background-image:url('flags.png');
+				background-position:right center;
+				background-repeat:no-repeat;
+			}
+			#stage {				
+				width:480px;
+				height:360px;
+				background-image:url('cat.png');
+				background-position:center center;
+				background-repeat:no-repeat;
+				border-top:1px solid #555;
+			}
+			
+			#sprites {
+				border:1px solid #000;				
+				position:absolute;
+				top:400px;
+				left:1078px;
+				width:480px;
+			}
+			.sprite {
+				float:left;
+				width:70px;
+				height:100px;
+				background:#777;
+				color:#FFF;
+				margin:8px;
+				text-align:center;
+				border:2px solid transparent;
+				font:9pt Arial;
+				font-weight:bold;
+				border-radius:6px;
+			}
+			.sprite.selected {
+				border:2px solid #11A5EF;
+				background:#444;
+				box-shadow:0 0 16px #000;
+			}
+			.icon {
+				width:60px;
+				height:77px;
+				margin:0 auto;
+			}
+			.icon img {
+				max-width:60px;
+				max-height:85px;
+				margin:0 auto;
+			}
+		</style>
+	</head>
+	<body onLoad="draw()">
+		<div id="panel">
+			<div id="control"></div>
+			<img src="control panel.png">
+		</div>
+		<canvas id="lines" width="800" height="758"></canvas>
+		<textarea onKeyUp="draw()" id="code">when gf clicked
+   move (10) steps
+   forever
+      say (Hello!)
+      mouse x
+   end
+   play sound [BOOM]
+   (13)+(37)
+   clear
+   [variable]
+
+when gf clicked
+   broadcast [go] and wait</textarea>
+		<script>$('#code').tabby({tabString:'   '});</script>
+		<div id="preview">
+			<div id="flags"></div>
+			<div id="stage"></div>
+		</div>
+		<div id="sprites">
+			<div class="sprite">
+				<div class="icon" style="margin:12px auto 20px auto;height:45px;"><div style="background:#FFF;width:100%;height:100%"></div></div>
+				Stage
+			</div>
+			<div class="sprite selected">
+				<div class="icon"><img src="cat.png"/></div>
+				Sprite 1
+			</div>
+		</div>
+	</body>
+</html>
+theprimeruniverse@gmail.com
